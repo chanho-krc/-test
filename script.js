@@ -19,9 +19,8 @@ function loadProgressData() {
         const progressContainer = document.getElementById('progressContainer');
         progressContainer.innerHTML = ''; // 기존 내용 초기화
 
-        if (range.values && range.values.length > 0) {
-            // 첫 번째 행은 헤더이므로, 두 번째 행부터 시작
-            for (let i = 1; i < range.values.length; i++) {
+        if (range.values && range.values.length > 1) { // 헤더를 제외한 데이터가 있는지 확인
+            for (let i = 1; i < range.values.length; i++) { // 첫 번째 행은 헤더이므로 건너뜀
                 const row = range.values[i];
                 const progressItem = document.createElement('div');
                 progressItem.className = 'progress-item';
