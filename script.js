@@ -7,13 +7,15 @@ function initClient() {
         'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
     }).then(() => {
         loadProgressData();
+    }).catch((error) => {
+        console.error('Error initializing Google API client:', error);
     });
 }
 
 function loadProgressData() {
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: SPREADSHEET_ID,
-        range: '진도율!A1:B', // 시트 이름과 범위
+        range: '진도율!A1:D', // 시트 이름과 범위
     }).then((response) => {
         const range = response.result;
         const progressContainer = document.getElementById('progressContainer');
@@ -24,11 +26,17 @@ function loadProgressData() {
                 const row = range.values[i];
                 const progressItem = document.createElement('div');
                 progressItem.className = 'progress-item';
+                const actual = row[1]; // 실적
+                const target = row[2]; // 목표
+                const progress = row[3]; // 진도율
+
                 progressItem.innerHTML = `
                     <h2>${row[0]}</h2>
                     <div class="sub-item">
-                        <span>진도율: <span class="progress-value">${row[1]}%</span></span>
-                        <div class="progress-bar" style="width: ${row[1]}%;"></div>
+                        <span>실적: ${actual}</span>
+                        <span>목표: ${target}</span>
+                        <span>진도율: <span class="progress-value">${progress}%</span></span>
+                        <div class="progress-bar" style="width: ${progress}%;"></div>
                     </div>
                 `;
                 progressContainer.appendChild(progressItem);
