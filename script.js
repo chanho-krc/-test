@@ -27,10 +27,10 @@ function loadProgressData() {
                 const itemName = row[0]; // 항목 이름
                 const actual = row[1]; // 실적
                 const target = row[2]; // 목표
-                const progress = parseInt(row[3]); // 진도율
+                const progress = parseFloat(row[3]); // 진도율
 
                 // 진도율이 유효하지 않거나 항목 이름이 비어있거나 음수인 경우 건너뜀
-                if (isNaN(progress) || progress < 0 || !itemName) {
+                if (isNaN(progress) || progress < 0 || !itemName.trim()) {
                     continue;
                 }
 
@@ -40,7 +40,7 @@ function loadProgressData() {
                     <h2>${itemName}</h2>
                     <div class="progress-header">
                         <span class="actual">실적: ${actual}</span>
-                        <span class="target">목표: ${target} (${progress}%)</span>
+                        <span class="target">목표: ${target} (${progress.toFixed(2)}%)</span>
                     </div>
                     <div class="progress-bar-container">
                         <div class="progress-bar" style="width: ${progress}%; background-color: ${progress >= 100 ? 'green' : '#76c7c0'};">
