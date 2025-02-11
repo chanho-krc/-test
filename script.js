@@ -39,8 +39,7 @@ function loadProgressData() {
                     <h2>${row[0]}</h2>
                     <div class="sub-item">
                         <span>실적: ${actual}</span>
-                        <span>목표: ${target}</span>
-                        <span>진도율: <span class="progress-value">${progress}%</span></span>
+                        <span>목표: ${target} (${progress}%)</span>
                         <div class="progress-bar" style="width: ${progress}%; background-color: ${progress === 100 ? 'green' : '#76c7c0'};"></div>
                     </div>
                 `;
