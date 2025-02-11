@@ -43,6 +43,7 @@ h1 {
 }
 
 .progress-bar-container {
+    position: relative;
     width: 100%;
     background-color: #e0e0e0;
     border-radius: 5px;
@@ -52,6 +53,13 @@ h1 {
 .progress-bar {
     height: 20px;
     transition: width 0.5s;
+}
+
+.progress-value {
+    position: absolute;
+    right: 10px;
+    top: -25px; /* Adjust this value to position the text */
+    font-weight: bold;
 }
 
 .sub-item {
