@@ -15,7 +15,7 @@ function initClient() {
 function loadProgressData() {
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: SPREADSHEET_ID,
-        range: '진도율!A1:D', // 시트 이름과 범위
+        range: '진도율!A1:E', // 시트 이름과 범위 (E열 추가)
     }).then((response) => {
         const range = response.result;
         const progressContainer = document.getElementById('progressContainer');
@@ -25,12 +25,15 @@ function loadProgressData() {
             for (let i = 1; i < range.values.length; i++) { // 첫 번째 행은 헤더이므로 건너뜀
                 const row = range.values[i];
                 const itemName = row[0]; // 항목 이름
-                const actual = row[1]; // 실적
-                const target = row[2]; // 목표
-                const progress = parseFloat(row[3]); // 진도율
+                const actuals = row.slice(1, 5); // 실적 (B, C, D, E 열)
+                const targets = row.slice(5, 9); // 목표 (F, G, H, I 열)
+                const progress = actuals.map((actual, index) => {
+                    const target = targets[index] ? parseFloat(targets[index]) : 0;
+                    return target > 0 ? (parseFloat(actual) / target) * 100 : 0;
+                });
 
                 // A, B, C, D 열 중 하나라도 공란인 경우 건너뜀
-                if (!itemName.trim() || actual === "" || target === "" || isNaN(progress) || progress < 0) {
+                if (!itemName.trim() || actuals.some(actual => actual === "") || targets.some(target => target === "")) {
                     continue;
                 }
 
@@ -39,15 +42,16 @@ function loadProgressData() {
                 progressItem.innerHTML = `
                     <h2>${itemName}</h2>
                     <div class="progress-header">
-                        <span class="actual">실적: ${actual}</span>
-                        <span class="target">목표: ${target} (${progress.toFixed(2)}%)</span>
+                        ${actuals.map((actual, index) => `<span>Q${index + 1} 실적: ${actual} 목표: ${targets[index]} (${progress[index].toFixed(2)}%)</span>`).join('<br>')}
                     </div>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: ${progress}%; background-color: ${progress >= 100 ? 'green' : '#76c7c0'};">
-                            <div class="months-container">
-                                ${generateMonthsHTML()}
+                        ${progress.map((p, index) => `
+                            <div class="progress-bar" style="width: ${p}%; background-color: ${p >= 100 ? 'green' : '#76c7c0'};">
+                                <div class="months-container">
+                                    ${generateMonthsHTML()}
+                                </div>
                             </div>
-                        </div>
+                        `).join('')}
                     </div>
                 `;
                 progressContainer.appendChild(progressItem);
