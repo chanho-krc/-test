@@ -102,3 +102,19 @@ button {
 button:hover {
     background-color: #66b2a8;
 }
+
+.months-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.month-item {
+    flex: 1;
+    text-align: center;
+}
+
+.current-month {
+    font-weight: bold;
+    color: red; /* 현재 월 강조 색상 */
+}

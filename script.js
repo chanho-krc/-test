@@ -43,7 +43,11 @@ function loadProgressData() {
                         <span class="target">목표: ${target} (${progress}%)</span>
                     </div>
                     <div class="progress-bar-container">
-                        <div class="progress-bar" style="width: ${progress}%; background-color: ${progress >= 100 ? 'green' : '#76c7c0'};"></div>
+                        <div class="progress-bar" style="width: ${progress}%; background-color: ${progress >= 100 ? 'green' : '#76c7c0'};">
+                            <div class="months-container">
+                                ${generateMonthsHTML()}
+                            </div>
+                        </div>
                     </div>
                 `;
                 progressContainer.appendChild(progressItem);
@@ -54,6 +58,16 @@ function loadProgressData() {
     }, (response) => {
         console.error('Error: ' + response.result.error.message);
     });
+}
+
+function generateMonthsHTML() {
+    const months = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"];
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth(); // 0부터 시작하므로 현재 월을 가져옴
+
+    return months.map((month, index) => {
+        return `<span class="month-item ${index === currentMonth ? 'current-month' : ''}">${month}</span>`;
+    }).join('');
 }
 
 document.getElementById('updateProgress').addEventListener('click', () => {
