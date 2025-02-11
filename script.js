@@ -13,14 +13,16 @@ function initClient() {
 function loadProgressData() {
     gapi.client.sheets.spreadsheets.values.get({
         spreadsheetId: SPREADSHEET_ID,
-        range: 'Sheet1!A1:B', // 시트 이름과 범위
+        range: '진도율!A1:B', // 시트 이름과 범위
     }).then((response) => {
         const range = response.result;
         const progressContainer = document.getElementById('progressContainer');
         progressContainer.innerHTML = ''; // 기존 내용 초기화
 
         if (range.values && range.values.length > 0) {
-            range.values.forEach((row) => {
+            // 첫 번째 행은 헤더이므로, 두 번째 행부터 시작
+            for (let i = 1; i < range.values.length; i++) {
+                const row = range.values[i];
                 const progressItem = document.createElement('div');
                 progressItem.className = 'progress-item';
                 progressItem.innerHTML = `
@@ -31,7 +33,7 @@ function loadProgressData() {
                     </div>
                 `;
                 progressContainer.appendChild(progressItem);
-            });
+            }
         } else {
             progressContainer.innerHTML = '데이터가 없습니다.';
         }
