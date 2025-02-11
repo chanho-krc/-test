@@ -70,8 +70,9 @@ function generateMonthsHTML() {
     }).join('');
 }
 
+// 진도율 업데이트 버튼 클릭 시 페이지 새로 고침
 document.getElementById('updateProgress').addEventListener('click', () => {
-    loadProgressData(); // 데이터 새로 고침
+    location.reload(); // 페이지 새로 고침
 });
 
 // Google API 로드
