@@ -24,6 +24,7 @@ function loadProgressData() {
         if (range.values && range.values.length > 1) { // 헤더를 제외한 데이터가 있는지 확인
             for (let i = 1; i < range.values.length; i++) { // 첫 번째 행은 헤더이므로 건너뜀
                 const row = range.values[i];
+                const itemName = row[0]; // 항목 이름
                 const actual = row[1]; // 실적
                 const target = row[2]; // 목표
                 const progress = parseInt(row[3]); // 진도율
@@ -37,6 +38,7 @@ function loadProgressData() {
                 progressItem.className = 'progress-item';
                 progressItem.innerHTML = `
                     <div class="progress-header">
+                        <span class="item-name">${itemName}</span>
                         <span class="actual">실적: ${actual}</span>
                         <span class="target">목표: ${target} (${progress}%)</span>
                     </div>
