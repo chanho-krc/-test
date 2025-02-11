@@ -29,8 +29,8 @@ function loadProgressData() {
                 const target = row[2]; // 목표
                 const progress = parseFloat(row[3]); // 진도율
 
-                // 진도율이 유효하지 않거나 항목 이름이 비어있거나 음수인 경우 건너뜀
-                if (isNaN(progress) || progress < 0 || !itemName.trim()) {
+                // A, B, C, D 열 중 하나라도 공란인 경우 건너뜀
+                if (!itemName.trim() || actual === "" || target === "" || isNaN(progress) || progress < 0) {
                     continue;
                 }
 
