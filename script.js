@@ -37,8 +37,8 @@ function loadProgressData() {
                 const progressItem = document.createElement('div');
                 progressItem.className = 'progress-item';
                 progressItem.innerHTML = `
+                    <h2>${itemName}</h2>
                     <div class="progress-header">
-                        <span class="item-name">${itemName}</span>
                         <span class="actual">실적: ${actual}</span>
                         <span class="target">목표: ${target} (${progress}%)</span>
                     </div>
