@@ -24,19 +24,24 @@ function loadProgressData() {
         if (range.values && range.values.length > 1) { // 헤더를 제외한 데이터가 있는지 확인
             for (let i = 1; i < range.values.length; i++) { // 첫 번째 행은 헤더이므로 건너뜀
                 const row = range.values[i];
-                const progressItem = document.createElement('div');
-                progressItem.className = 'progress-item';
                 const actual = row[1]; // 실적
                 const target = row[2]; // 목표
-                const progress = row[3]; // 진도율
+                let progress = parseInt(row[3]); // 진도율
 
+                // 진도율이 100%를 초과할 경우 100으로 설정
+                if (progress > 100) {
+                    progress = 100;
+                }
+
+                const progressItem = document.createElement('div');
+                progressItem.className = 'progress-item';
                 progressItem.innerHTML = `
                     <h2>${row[0]}</h2>
                     <div class="sub-item">
                         <span>실적: ${actual}</span>
                         <span>목표: ${target}</span>
                         <span>진도율: <span class="progress-value">${progress}%</span></span>
-                        <div class="progress-bar" style="width: ${progress}%;"></div>
+                        <div class="progress-bar" style="width: ${progress}%; background-color: ${progress === 100 ? 'green' : '#76c7c0'};"></div>
                     </div>
                 `;
                 progressContainer.appendChild(progressItem);
