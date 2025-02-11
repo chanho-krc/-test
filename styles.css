@@ -106,7 +106,10 @@ button:hover {
 .months-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    position: absolute; /* 바 차트 안에 위치하도록 설정 */
+    width: 100%;
+    bottom: 0; /* 바 차트의 아래쪽에 위치 */
+    font-size: 12px; /* 글자 크기 조정 */
 }
 
 .month-item {
