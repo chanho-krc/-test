@@ -24,11 +24,34 @@ h1 {
 }
 
 .progress-item {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+    padding: 15px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    padding: 15px;
     background-color: #fafafa;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.actual, .target {
+    font-weight: bold;
+}
+
+.progress-bar-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.progress-bar {
+    height: 20px;
+    transition: width 0.5s;
 }
 
 .sub-item {
@@ -54,22 +77,6 @@ h1 {
 .progress-input:focus {
     border-color: #76c7c0;
     outline: none;
-}
-
-.progress-bar {
-    width: 100%;
-    background-color: #e0e0e0;
-    border-radius: 5px;
-    overflow: hidden;
-}
-
-.progress-bar::after {
-    content: '';
-    display: block;
-    height: 20px;
-    background-color: #76c7c0;
-    width: 0;
-    transition: width 0.5s;
 }
 
 button {

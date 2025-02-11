@@ -26,21 +26,22 @@ function loadProgressData() {
                 const row = range.values[i];
                 const actual = row[1]; // 실적
                 const target = row[2]; // 목표
-                let progress = parseInt(row[3]); // 진도율
+                const progress = parseInt(row[3]); // 진도율
 
-                // 진도율이 100%를 초과할 경우 100으로 설정
-                if (progress > 100) {
-                    progress = 100;
+                // 진도율이 유효하지 않은 경우 건너뜀
+                if (isNaN(progress) || progress < 0) {
+                    continue;
                 }
 
                 const progressItem = document.createElement('div');
                 progressItem.className = 'progress-item';
                 progressItem.innerHTML = `
-                    <h2>${row[0]}</h2>
-                    <div class="sub-item">
-                        <span>실적: ${actual}</span>
-                        <span>목표: ${target} (${progress}%)</span>
-                        <div class="progress-bar" style="width: ${progress}%; background-color: ${progress === 100 ? 'green' : '#76c7c0'};"></div>
+                    <div class="progress-header">
+                        <span class="actual">실적: ${actual}</span>
+                        <span class="target">목표: ${target} (${progress}%)</span>
+                    </div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" style="width: ${progress}%; background-color: ${progress >= 100 ? 'green' : '#76c7c0'};"></div>
                     </div>
                 `;
                 progressContainer.appendChild(progressItem);
